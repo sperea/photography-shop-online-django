@@ -20,3 +20,23 @@ def product_detail(request, id, slug):
                   'shop/product/detail.html',
                   {'product': product,
                    'cart_product_form': cart_product_form})
+
+
+def course_list(request, category_slug=None):
+    coursecategory = None
+    coursecategories = Coursecategory.objects.all()
+    course = Course.objects.filter(available=True)
+    if coursecategory_slug:
+        coursecategory = get_object_or_404(Coursecategory, slug=coursecategory_slug)
+        courses = courses.filter(coursecategory=coursecategory)
+    return render(request, 'shop/courses/list.html', {'coursecategory': category,
+                                                      'coursecategories': categories,
+                                                      'courses': courses})
+
+def course_detail(request, id, slug):
+    course = get_object_or_404(Course, id=id, slug=slug, available=True)
+    cart_course_form = CartAddCourseForm()
+    return render(request,
+                  'shop/course/detail.html',
+                  {'course': course,
+                   'cart_course_form': cart_course_form})

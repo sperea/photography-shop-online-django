@@ -8,18 +8,18 @@
     <h1>Checkout</h1>
     
     <div class="order-info">
-        <h3>Your order</h3>
+        <h3>Tu pedido</h3>
         <ul>
             {% for item in cart %}
-                <li>{{ item.quantity }}x {{ item.product.name }} <span>${{ item.total_price }}</span></li>
+                <li>{{ item.quantity }}x {{ item.product.name }} <span>{{ item.total_price }}€</span></li>
             {% endfor %}
         </ul>
-        <p>Total: ${{ cart.get_total_price }}</p>
+        <p>Total: {{ cart.get_total_price }}€</p>
     </div>
     
     <form action="." method="post" class="order-form">
         {{ form.as_p }}
-        <p><input type="submit" value="Place order"></p>
+        <p><input type="submit" value="Finalizar pedido"></p>
         {% csrf_token %}
     </form>
 {% endblock %}
