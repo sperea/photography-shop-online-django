@@ -1,0 +1,34 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    {% if coursecategory %}{{ coursecategory.name }}{% else %}courses{% endif %}
+{% endblock %}
+
+{% block content %}
+    <div id="sidebar">
+        <h3>Cursos</h3>
+        <ul>
+            <li {% if not coursecategory %}class="selected"{% endif %}>
+                <a href="{% url "shop:course_list" %}">Todas</a>
+            </li>
+        {% for c in coursecategories %}
+            <li {% if coursecategory.slug == c.slug %}class="selected"{% endif %}>
+                <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div id="main" class="product-list">
+        <h1>{% if coursecategory %}{{ coursecategory.name }}{% else %}Artículos{% endif %}</h1>
+        {% for course in courses %}
+            <div class="item">
+                <a href="{{ course.get_absolute_url }}">
+                    <img src="{% if course.image %}{{ course.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                </a>
+                <a href="{{ course.get_absolute_url }}">{{ course.name }}</a><br>
+                {{ course.price }}€
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

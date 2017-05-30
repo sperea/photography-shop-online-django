@@ -1,0 +1,21 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="product-detail">
+        <img src="{% if course.image %}{{ course.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+        <h1>{{ course.name }}</h1>
+        <h2><a href="{{ course.coursecategory.get_absolute_url }}">{{ course.coursecategory }}</a></h2>
+        <p class="price">{{ course.price }}€</p>
+        {{ course.description|linebreaks }}
+        <form action="{% url "cart:cart_add" course.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Adquirir curso ya">
+        </form>
+        
+    </div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Category, Product
+from .models import Category, Product, Course, Coursecategory
 from cart.forms import CartAddProductForm
 
 def product_list(request, category_slug=None):
@@ -22,21 +22,20 @@ def product_detail(request, id, slug):
                    'cart_product_form': cart_product_form})
 
 
-def course_list(request, category_slug=None):
+def course_list(request, coursecategory_slug=None):
     coursecategory = None
     coursecategories = Coursecategory.objects.all()
-    course = Course.objects.filter(available=True)
+    courses = Course.objects.all
     if coursecategory_slug:
         coursecategory = get_object_or_404(Coursecategory, slug=coursecategory_slug)
         courses = courses.filter(coursecategory=coursecategory)
-    return render(request, 'shop/courses/list.html', {'coursecategory': category,
-                                                      'coursecategories': categories,
-                                                      'courses': courses})
+    return render(request, 'shop/product/course_list.html', {'coursecategory': coursecategory,
+                                                             'coursecategories': coursecategories,
+                                                             'courses': courses})
 
 def course_detail(request, id, slug):
-    course = get_object_or_404(Course, id=id, slug=slug, available=True)
-    cart_course_form = CartAddCourseForm()
+    course = get_object_or_404(Course, id=id, slug=slug)
+    # cart_course_form = CartAddCourseForm()
     return render(request,
-                  'shop/course/detail.html',
-                  {'course': course,
-                   'cart_course_form': cart_course_form})
+                  'shop/product/course_detail.html',
+                  {'course': course})
