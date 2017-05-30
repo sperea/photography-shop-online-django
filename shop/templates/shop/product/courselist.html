@@ -7,10 +7,10 @@
 
 {% block content %}
     <div id="sidebar">
-        <h3>Fotografías</h3>
+        <h3>Cursos y publicaciones</h3>
         <ul>
             <li {% if not category %}class="selected"{% endif %}>
-                <a href="{% url "shop:product_list" %}">Todas</a>
+                <a href="{% url "shop:product_list" %}">Tod@</a>
             </li>
         {% for c in categories %}
             <li {% if category.slug == c.slug %}class="selected"{% endif %}>
