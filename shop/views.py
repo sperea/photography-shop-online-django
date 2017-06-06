@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Category, Product, Course, Coursecategory
 from cart.forms import CartAddProductForm
 
+
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
@@ -12,6 +13,7 @@ def product_list(request, category_slug=None):
     return render(request, 'shop/product/list.html', {'category': category,
                                                       'categories': categories,
                                                       'products': products})
+
 
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
@@ -32,6 +34,7 @@ def course_list(request, coursecategory_slug=None):
     return render(request, 'shop/product/course_list.html', {'coursecategory': coursecategory,
                                                              'coursecategories': coursecategories,
                                                              'courses': courses})
+
 
 def course_detail(request, id, slug):
     course = get_object_or_404(Course, id=id, slug=slug)

@@ -17,6 +17,7 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product_list_by_category', args=[self.slug])
 
+
 class Coursecategory(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
@@ -31,6 +32,7 @@ class Coursecategory(models.Model):
 
     def get_absolute_url(self):
         return reverse('shop:course_list_by_coursecategory', args=[self.slug])
+
 
 class ProductSize(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -67,6 +69,7 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('shop:product_detail', args=[self.id, self.slug])
+
 
 class Course(models.Model):
     coursecategory = models.ForeignKey(Coursecategory, related_name='courses')
